@@ -2,7 +2,7 @@ name: Build AppImage
 
 on:
   push:
-    branches: [custom/hide-menu-bar]
+    branches: [personal]
   workflow_dispatch:
 
 jobs:
