@@ -1,34 +1,38 @@
 name: Build AppImage
-
 on:
   push:
     branches: [personal]
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: pnpm/action-setup@v4
         with:
           version: 10.33.2
-
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: pnpm
-
       - name: Install dependencies
         run: pnpm install
-
       - name: Install Verdaccio and publish workspace packages
         run: |
           npm install -g verdaccio
           verdaccio &
           sleep 3
-          npx npm-cli-adduser --username admin --password admin123 --email admin@local.dev --registry http://localhost:4873
+
+          # Create user via Verdaccio REST API
+          curl -s -X PUT http://localhost:4873/-/user/org.couchdb.user:admin \
+            -H "Content-Type: application/json" \
+            -d '{"name":"admin","password":"admin123","email":"admin@local.dev","type":"user"}' \
+            -o /tmp/verdaccio-auth.json
+
+          # Extract token and set in .npmrc
+          TOKEN=$(node -e "console.log(require('/tmp/verdaccio-auth.json').token)")
+          npm config set //localhost:4873/:_authToken "$TOKEN"
+
           for dir in packages/*/; do
             pkg="$dir/package.json"
             cp "$pkg" "$pkg.bak"
@@ -36,10 +40,8 @@ jobs:
             (cd "$dir" && npm publish --registry http://localhost:4873 --ignore-scripts 2>&1 || true)
             cp "$pkg.bak" "$pkg" && rm "$pkg.bak"
           done
-
       - name: Build AppImage
         run: npm_config_registry=http://localhost:4873 pnpm tools-pack linux build --to appimage
-
       - name: Upload AppImage
         uses: actions/upload-artifact@v4
         with:
