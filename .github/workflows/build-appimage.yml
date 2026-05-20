@@ -1,0 +1,47 @@
+name: Build AppImage
+
+on:
+  push:
+    branches: [custom/hide-menu-bar]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Verdaccio and publish workspace packages
+        run: |
+          npm install -g verdaccio
+          verdaccio &
+          sleep 3
+          npx npm-cli-adduser --username admin --password admin123 --email admin@local.dev --registry http://localhost:4873
+          for dir in packages/*/; do
+            pkg="$dir/package.json"
+            cp "$pkg" "$pkg.bak"
+            node -e "const fs=require('fs');const p=JSON.parse(fs.readFileSync('$pkg'));delete p.private;fs.writeFileSync('$pkg',JSON.stringify(p,null,2))"
+            (cd "$dir" && npm publish --registry http://localhost:4873 --ignore-scripts 2>&1 || true)
+            cp "$pkg.bak" "$pkg" && rm "$pkg.bak"
+          done
+
+      - name: Build AppImage
+        run: npm_config_registry=http://localhost:4873 pnpm tools-pack linux build --to appimage
+
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v4
+        with:
+          name: open-design-appimage
+          path: dist/*.AppImage

@@ -984,6 +984,7 @@ export async function createDesktopRuntime(options: DesktopRuntimeOptions): Prom
       sandbox: true,
     },
     width: 1280,
+    autoHideMenuBar: true,
   });
   installWindowChromeCssHook(window);
   showWindowButtons(window);

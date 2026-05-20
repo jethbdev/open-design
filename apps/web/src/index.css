@@ -26418,3 +26418,421 @@ body.desktop-pet-shell .pet-task-item {
   font-size: 12px;
   max-width: 48ch;
 }
+
+
+/* ============================================================
+   Bearded Theme Black & Sapphire — Open Design CSS Override
+   Replaces ALL accent/orange references with sapphire #8aadf4
+   ============================================================ */
+
+/* Force dark mode at every selector level so the light :root never wins */
+:root,
+html,
+html[data-theme],
+html[data-theme="dark"],
+html:not([data-theme]),
+[data-theme="dark"],
+body {
+  color-scheme: dark;
+
+  /* ── Surfaces ─────────────────────────────────────────── */
+  --bg:            #111418;
+  --bg-app:        #111418;
+  --bg-panel:      #0c0f11;
+  --bg-subtle:     #171c20;
+  --bg-muted:      #21292f;
+  --bg-elevated:   #1c2027;
+
+  /* ── Borders ──────────────────────────────────────────── */
+  --border:        #1a1f26;
+  --border-strong: #2a3240;
+  --border-soft:   #12161a;
+
+  /* ── Text ─────────────────────────────────────────────── */
+  --text:          #bec6d0;
+  --text-strong:   #dce0e5;
+  --text-muted:    #a0acbb;
+  --text-soft:     #73849c;
+  --text-faint:    #475262;
+
+  /* ── PRIMARY ACCENT — sapphire blue, replaces all orange ─ */
+  --accent:        #8aadf4;
+  --accent-strong: #5f8ae0;
+  --accent-soft:   #8aadf426;
+  --accent-tint:   #8aadf41a;
+  --accent-hover:  #9fbcf6;
+
+  /* ── Semantic greens ──────────────────────────────────── */
+  --green:         #00a884;
+  --green-bg:      #00a88426;
+  --green-border:  #00a88480;
+
+  /* ── Semantic blues ───────────────────────────────────── */
+  --blue:          #11B7D4;
+  --blue-bg:       #11b7d426;
+  --blue-border:   #11b7d480;
+
+  /* ── Semantic purples ─────────────────────────────────── */
+  --purple:        #a85ff1;
+  --purple-bg:     #a85ff11a;
+  --purple-border: #a85ff180;
+
+  /* ── Semantic reds ────────────────────────────────────── */
+  --red:           #E35535;
+  --red-bg:        #e3553526;
+  --red-border:    #e3553580;
+
+  /* ── Semantic ambers ──────────────────────────────────── */
+  --amber:         #c7910c;
+  --amber-bg:      #c7910c26;
+
+  /* ── Selection / focus ────────────────────────────────── */
+  --selected:      #8aadf4;
+  --selected-soft: #8aadf433;
+
+  /* ── Shadows ──────────────────────────────────────────── */
+  --shadow-xs: 0 1px 0 rgba(0,0,0,0.4);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.35);
+  --shadow-md: 0 6px 24px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4);
+  --shadow-lg: 0 24px 60px rgba(0,0,0,0.75), 0 8px 16px rgba(0,0,0,0.5);
+
+  /* ── Radii ────────────────────────────────────────────── */
+  --radius-sm:   8px;
+  --radius:      12px;
+  --radius-lg:   16px;
+  --radius-pill: 999px;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+body {
+  color: var(--text);
+  background: var(--bg-app);
+}
+
+/* ── Inputs ───────────────────────────────────────────────── */
+input, textarea, select {
+  background: var(--bg-panel);
+  color: var(--text);
+  border-color: var(--border);
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--selected-soft);
+}
+
+/* ── Buttons — wipe the orange from every variant ────────── */
+button {
+  background: var(--bg-subtle);
+  color: var(--text);
+  border-color: var(--border);
+}
+button:hover:not(:disabled) {
+  background: var(--bg-muted);
+  border-color: var(--border-strong);
+}
+button.primary,
+.composer-send,
+.newproj-create.primary {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #0c0f11 !important;
+}
+button.primary:hover:not(:disabled),
+.composer-send:hover:not(:disabled) {
+  background: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+}
+button.primary-ghost {
+  background: var(--bg-panel);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+button.primary-ghost:hover:not(:disabled) {
+  background: var(--accent-tint);
+}
+
+/* ── Composer send button ─────────────────────────────────── */
+.composer-send {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0c0f11;
+}
+.composer-send:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.composer-send:disabled {
+  background: var(--bg-subtle);
+  border-color: var(--border);
+  color: var(--text-faint);
+}
+
+/* ── Chrome export / share CTA buttons ───────────────────── */
+.chrome-action-export,
+.viewer-action-export {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0c0f11;
+}
+.chrome-action-export:hover:not(:disabled),
+.viewer-action-export:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  color: #0c0f11;
+}
+
+/* ── Viewer primary action ────────────────────────────────── */
+.viewer-action.primary {
+  background: var(--accent);
+  color: #0c0f11;
+  border-color: var(--accent);
+}
+.viewer-action.primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.viewer-action.active {
+  background: var(--accent-tint);
+  color: var(--accent);
+}
+
+/* ── App chrome primary action ────────────────────────────── */
+.chrome-action-primary {
+  background: var(--text-strong);
+  border-color: var(--text-strong);
+  color: var(--bg);
+}
+
+/* ── Newproj create button ────────────────────────────────── */
+.newproj-create {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0c0f11;
+}
+
+/* ── Orbit run CTA ────────────────────────────────────────── */
+.orbit-run-cta {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0c0f11;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--accent-strong) 22%, transparent) inset, var(--shadow-xs);
+}
+.orbit-run-cta:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+/* ── Question form submit ─────────────────────────────────── */
+.op-ask-question-submit {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0c0f11;
+}
+.qf-chip-on {
+  border-color: var(--accent);
+  background: var(--accent-tint);
+  color: var(--accent);
+}
+
+/* ── Plugin / connector primary actions ───────────────────── */
+.plugin-details-modal__primary,
+.settings-connectors-save,
+button.connector-action.is-connect,
+.orbit-config-gate-action,
+.ds-modal-primary-action {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #0c0f11 !important;
+}
+
+/* ── Focus rings everywhere ───────────────────────────────── */
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline-color: var(--accent);
+}
+.fidelity-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 1px 0 rgba(139, 173, 244, 0.04);
+}
+.design-card:focus-visible,
+.design-kanban-card:focus-visible {
+  outline-color: var(--accent);
+}
+
+/* ── Resize handle ────────────────────────────────────────── */
+.split-resize-handle:hover,
+.split-resize-handle:focus-visible,
+.split.is-resizing-chat .split-resize-handle {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 20%, transparent) 0,
+    color-mix(in srgb, var(--accent) 20%, transparent) 3px,
+    var(--accent) 3px, var(--accent) 5px,
+    color-mix(in srgb, var(--accent) 20%, transparent) 5px
+  );
+}
+
+/* ── Chat user bubble ─────────────────────────────────────── */
+.msg.user .user-text {
+  background: #1a2a45;
+  border-color: #8aadf440;
+  color: #bec6d0;
+}
+
+/* ── Active pane / panel highlights ──────────────────────── */
+.ws-tab.active,
+.chat-header-tab.active {
+  background: var(--bg-subtle);
+  border-color: var(--border-strong);
+}
+.agent-card.active::before,
+.settings-skills .skills-row-expanded::before {
+  background: var(--accent);
+}
+.settings-nav-item.active {
+  background: var(--bg-subtle);
+  color: var(--text);
+}
+
+/* ── Library / skill card active states ───────────────────── */
+.skill-radio.active,
+.template-option.active,
+.ds-row.active,
+.ds-card.active {
+  border-color: var(--accent);
+  background: var(--accent-tint);
+}
+.qf-card-on {
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 4%, var(--bg));
+  box-shadow: 0 0 0 1px var(--accent) inset;
+}
+
+/* ── Entry tabs ───────────────────────────────────────────── */
+.entry-tab.active,
+.entry-tab.active:hover:not(:disabled) {
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Newproj tab active ────────────────────────────────────── */
+.newproj-tab.active {
+  color: var(--text);
+  background: var(--bg-panel);
+  border-color: var(--border);
+  border-bottom-color: var(--bg-panel);
+}
+
+/* ── Toggle row / compact toggle "on" ────────────────────── */
+.toggle-row.on .toggle-row-switch { background: var(--accent); }
+.compact-toggle.on .compact-toggle-switch { background: var(--accent); }
+.toggle-switch input:checked + .toggle-slider { background: var(--accent); }
+
+/* ── Orbit switch ─────────────────────────────────────────── */
+.orbit-switch.is-on .orbit-switch-track { background: var(--accent); }
+.orbit-switch.is-on {
+  background: color-mix(in srgb, var(--accent-tint) 70%, var(--bg-panel));
+  border-color: color-mix(in srgb, var(--accent) 36%, var(--border));
+  color: var(--accent);
+}
+
+/* ── Status dots / pills using accent ─────────────────────── */
+.status-dot.active { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.op-status-running { border-color: #a85ff180; background: #a85ff11a; color: #a85ff1; }
+.op-status-ok      { border-color: #00a88480; background: #00a8841a; color: #00a884; }
+.op-status-error   { border-color: #e3553580; background: #e355351a; color: #E35535; }
+
+/* ── Activity badges ──────────────────────────────────────── */
+.activity-header .dot[data-active="true"] { background: var(--accent); }
+.activity-item .badge-tool     { background: #11b7d41a; border-color: #11b7d480; color: #11B7D4; }
+.activity-item .badge-result   { background: #00a8841a; border-color: #00a88480; color: #00a884; }
+.activity-item .badge-error    { background: #e355351a; border-color: #e3553580; color: #E35535; }
+.activity-item .badge-thinking { background: #a85ff11a; border-color: #a85ff180; color: #a85ff1; }
+
+/* ── Thinking block ───────────────────────────────────────── */
+.thinking-block { background: #a85ff11a; border-color: #a85ff133; }
+.thinking-icon  { color: #a85ff1; }
+
+/* ── Code ─────────────────────────────────────────────────── */
+code { background: var(--bg-subtle); color: #00a884; border: 1px solid var(--border); }
+.op-bash .op-command { background: #0a0c0e; color: #00a884; }
+.op-bash .op-output  { background: #0c0f11; color: #a0acbb; }
+.markdown-rendered pre,
+.prose-block .md-code { background: #0a0c0e; border-color: var(--border-strong); }
+
+/* ── Todo states ──────────────────────────────────────────── */
+.todo-in_progress { background: #8aadf41a; border-color: #8aadf433; }
+.todo-in_progress .todo-check { color: #8aadf4; }
+.todo-completed .todo-check   { color: #00a884; }
+.todo-stopped { background: #e355351a; border-color: #e3553533; }
+.todo-stopped .todo-check { color: #E35535; }
+
+/* ── Design card statuses ─────────────────────────────────── */
+.design-card-status-running       { color: #11B7D4; }
+.design-card-status-succeeded     { color: #00a884; }
+.design-card-status-failed        { color: #E35535; }
+.design-card-status-awaiting_input { color: #c7910c; }
+
+/* ── Connector status ─────────────────────────────────────── */
+.connector-status.status-connected,
+.connector-status-pill.status-connected {
+  background: #00a8841a; color: #00a884; border-color: #00a88440;
+}
+.connector-status.status-error,
+.connector-status-pill.status-error {
+  background: #e355351a; color: #E35535; border-color: #e3553540;
+}
+.connector-status.status-pending,
+.connector-status-pill.status-pending {
+  background: #8aadf41a; color: #8aadf4; border-color: #8aadf440;
+}
+
+/* ── File ops badges ──────────────────────────────────────── */
+.file-ops-badge--read  { color: #8aadf4; border-color: #8aadf440; }
+.file-ops-badge--write { color: #00a884; border-color: #00a88440; background: #00a8840d; }
+.file-ops-badge--edit  { color: #c7910c; border-color: #c7910c40; background: #c7910c0d; }
+
+/* ── Live artifact badges ─────────────────────────────────── */
+.live-artifact-badge.live {
+  color: #8aadf4; border-color: #8aadf440; background: #8aadf41a;
+}
+
+/* ── Modal ────────────────────────────────────────────────── */
+.modal { background: var(--bg-elevated); border: 1px solid var(--border-strong); }
+.modal-backdrop { background: rgba(4, 5, 6, 0.72); }
+
+/* ── Scrollbars ───────────────────────────────────────────── */
+* { scrollbar-color: #2a3240 transparent; scrollbar-width: thin; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a3240; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4a5c; }
+
+/* ── Mention / slash popover item active ──────────────────── */
+.mention-item:hover,
+.slash-item:hover,
+.slash-item.active { background: var(--accent-tint); }
+
+/* ── DS picker active mark ────────────────────────────────── */
+.ds-picker-mark.radio.active::after { background: var(--text); }
+.ds-picker-mark.check.active { background: var(--accent); border-color: var(--accent); }
+.od-select-option-check { color: var(--accent); }
+
+/* ── Settings autosave saved state ───────────────────────── */
+.settings-autosave.is-saved {
+  color: #00a884;
+  background: color-mix(in srgb, #00a884 14%, var(--bg-panel));
+  border-color: color-mix(in srgb, #00a884 30%, transparent);
+}
+
+/* ── Protocol chip active ─────────────────────────────────── */
+.protocol-chip.active {
+  background: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 86%, var(--text-strong));
+  color: #0c0f11;
+  box-shadow: 0 0 0 3px var(--selected-soft), 0 1px 2px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* ── Plugin trust badge info tier (uses accent) ───────────── */
+.plugin-trust-badge--official { --trust-fg: #8aadf4; --trust-bg: #8aadf41a; --trust-border: #8aadf440; }
