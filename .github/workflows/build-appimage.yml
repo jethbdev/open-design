@@ -18,7 +18,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Ensure Electron binary is downloaded
-        run: pnpm --filter @open-design/desktop rebuild electron
+        run: |
+          pnpm --filter @open-design/desktop exec node -e 'const fs = require("fs"); const path = require("path"); const electronPath = path.dirname(require.resolve("electron/package.json")); try { fs.rmSync(path.join(electronPath, "dist"), { recursive: true, force: true }); fs.rmSync(path.join(electronPath, "path.txt"), { force: true }); } catch (e) {}'
+          pnpm --filter @open-design/desktop rebuild electron
       - name: Install Verdaccio and publish workspace packages
         run: |
           npm install -g verdaccio
