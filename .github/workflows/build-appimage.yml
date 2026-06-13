@@ -41,7 +41,7 @@ jobs:
             cp "$pkg.bak" "$pkg" && rm "$pkg.bak"
           done
       - name: Build AppImage
-        run: npm_config_registry=http://localhost:4873 pnpm tools-pack linux build --to appimage
+        run: npm_config_registry=http://localhost:4873 pnpm tools-pack linux build --to appimage --portable
       - name: Upload AppImage
         uses: actions/upload-artifact@v4
         with:
