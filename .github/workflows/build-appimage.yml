@@ -17,6 +17,8 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install
+      - name: Ensure Electron binary is downloaded
+        run: pnpm rebuild electron
       - name: Install Verdaccio and publish workspace packages
         run: |
           npm install -g verdaccio
