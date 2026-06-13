@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Ensure Electron binary is downloaded
-        run: pnpm rebuild electron
+        run: pnpm --filter @open-design/desktop rebuild electron
       - name: Install Verdaccio and publish workspace packages
         run: |
           npm install -g verdaccio
